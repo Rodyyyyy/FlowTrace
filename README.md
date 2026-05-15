@@ -236,39 +236,6 @@ Detailed breakdown of:
 
 ---
 
-# Mathematical Implementation
-
-The transfer function is computed using Mason’s Gain Formula:
-
-$$
-T(s)=\frac{\sum P_k \Delta_k}{\Delta}
-$$
-
-Where:
-
-- \(P_k\)  
-  Gain of the \(k\)-th forward path
-
-- \(\Delta\)  
-  Graph determinant:
-
-$$
-\Delta =
-1
--
-(\text{sum of individual loop gains})
-+
-(\text{sum of products of two non-touching loops})
--
-(\text{sum of products of three non-touching loops})
-+\cdots
-$$
-
-- \(\Delta_k\)  
-  Cofactor for path \(P_k\), computed using loops that do not touch that path.
-
----
-
 # Features
 
 ## Signal Flow Graph Visualization
