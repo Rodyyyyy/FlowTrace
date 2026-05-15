@@ -112,8 +112,199 @@ Handles:
 
 ---
 
-## Step 1: Clone the Repository
+Install the required Python libraries:
 
 ```bash
-git clone https://github.com/your-username/flowtrace-studio.git
-cd flowtrace-studio
+pip install flask flask-cors networkx
+```
+
+Or using a requirements file:
+
+```bash
+pip install -r requirements.txt
+```
+
+Example `requirements.txt`:
+
+```txt
+flask
+flask-cors
+networkx
+```
+
+---
+
+## Step 3: Run the Application
+
+Start the Flask server:
+
+```bash
+python app.py
+```
+
+The application will be available at:
+
+```txt
+http://127.0.0.1:5000
+```
+
+Open the URL in your web browser.
+
+---
+
+# Usage Guide
+
+## 1. Defining the System
+
+FlowTrace supports two input modes.
+
+### Edge List Mode
+
+Define the graph directly by specifying:
+
+- Source node
+- Destination node
+- Symbolic gain
+
+Example:
+
+```txt
+X1 -> X2 : G1
+X2 -> X3 : G2
+X3 -> X2 : -H1
+```
+
+---
+
+### Block Diagram Mode
+
+Build systems visually using:
+
+- Transfer function blocks
+- Summing junctions
+- Branch nodes
+- Feedback loops
+
+The parser automatically converts the diagram into a signal flow graph.
+
+---
+
+## 2. Running Analysis
+
+Click the **Analyze System** button.
+
+The backend performs:
+
+- Forward path detection
+- Feedback loop discovery
+- Non-touching loop generation
+- Delta calculation
+- Cofactor computation
+- Final transfer function derivation
+
+---
+
+## 3. Reviewing Results
+
+The results sidebar displays:
+
+### Transfer Function
+
+The symbolic expression of:
+
+```math
+T(s)
+```
+
+---
+
+### Path Highlighting
+
+Selecting a path or loop highlights it directly on the graph canvas.
+
+---
+
+### Step-by-Step Report
+
+Detailed breakdown of:
+
+- Forward path gains
+- Loop gains
+- Delta terms
+- Cofactors
+- Final Mason expansion
+
+---
+
+# Mathematical Implementation
+
+The transfer function is computed using Mason’s Gain Formula:
+
+$$
+T(s)=\frac{\sum P_k \Delta_k}{\Delta}
+$$
+
+Where:
+
+- \(P_k\)  
+  Gain of the \(k\)-th forward path
+
+- \(\Delta\)  
+  Graph determinant:
+
+$$
+\Delta =
+1
+-
+(\text{sum of individual loop gains})
++
+(\text{sum of products of two non-touching loops})
+-
+(\text{sum of products of three non-touching loops})
++\cdots
+$$
+
+- \(\Delta_k\)  
+  Cofactor for path \(P_k\), computed using loops that do not touch that path.
+
+---
+
+# Features
+
+## Signal Flow Graph Visualization
+
+- Interactive node dragging
+- Zoom and pan support
+- Dynamic edge rendering
+- Loop highlighting
+
+---
+
+## Mason Analysis Engine
+
+- Automatic forward path generation
+- Feedback loop detection
+- Non-touching loop analysis
+- Symbolic transfer function computation
+
+---
+
+## Educational Reporting
+
+- Step-by-step derivation
+- Formula transparency
+- Debug-friendly graph breakdowns
+
+---
+
+# Future Improvements
+
+Potential enhancements include:
+
+- Symbolic algebra simplification
+- Export to PDF / LaTeX
+- Bode and Nyquist plotting
+- State-space conversion
+- Real-time collaborative editing
+- Dark/light theme switching
+- Graph persistence and project saving
